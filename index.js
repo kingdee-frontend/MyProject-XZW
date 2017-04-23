@@ -24,7 +24,7 @@ app.get('/signup', function(req, res) {
 
 
 
-app.set('views', __dirname + '/public/view');
+app.set('views', __dirname + '/view');
 app.engine('.html', ejs.__express);
 app.set('view engine', 'html');
 
