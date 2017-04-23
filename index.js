@@ -1,13 +1,16 @@
 var express = require('express')
 var app = express()
 var ejs = require('ejs')
+var mysql = require('./mysql')
 
 app.get('/', function(req, res) {
   res.render('index', {});
 });
 
 app.get('/index', function(req, res) {
-  res.render('index', {});
+    mysql.query('select * from user',function(err,rows){
+        res.render('index', {data:rows});
+    })
 });
 
 app.get('/myself', function(req, res) {
