@@ -10,11 +10,17 @@ var pool = mysql.createPool({
     database: 'zhiwei_blog'
 });
 
-function query(sql, callback) {
+var {sendError} = require('./util') 
+
+function query(sql, callback,res) {
     pool.getConnection(function (err, connection) {
         // Use the connection
         connection.query(sql, function (err, rows) {
-            callback(err, rows);
+            if(err){
+                console.log(err)
+                // sendError(res,err)
+            }
+            callback(rows);
             connection.release();//释放链接
         });
     });
