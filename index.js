@@ -13,15 +13,15 @@ app.get('/index', function(req, res) {
     })
 });
 
-app.get('/myself', function(req, res) {
+app.get('/myself.html', function(req, res) {
   res.render('myself', {});
 });
 
-app.get('/page', function(req, res) {
+app.get('/page.html', function(req, res) {
   res.render('page', {});
 });
 
-app.get('/signup', function(req, res) {
+app.get('/signup.html', function(req, res) {
   res.render('sign-up', {});
 });
 
