@@ -17,7 +17,7 @@
 		</div>
 	</nav>	
 	<figure>
-		<div class="container">
+		<div class="container" ng-app="myApp" ng-controller="myselfCtrl">
 			<div class="author">
 				<a href="" class="avatar">
 					<img src="../pic/user1.png" alt="">
@@ -68,7 +68,7 @@
 				<a href="" class="avatar">
 					<img src="../pic/user1.png" alt="">
 				</a>
-				<a href="" class="has_follow">
+				<a href="" class="has_follow" ng-mouseover="follow_hover()">
 					<i class="iconfont has"></i>
 					<span>已关注</span>
 				</a>
