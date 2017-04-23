@@ -21,11 +21,13 @@ app.get('/page.html', function(req, res) {
   res.render('page', {});
 });
 
-app.get('/signup.html', function(req, res) {
-  res.render('sign-up', {});
+app.get('/sign-in.html', function(req, res) {
+  res.render('sign-in', {});
 });
 
-
+app.get('/sign-up.html', function(req, res) {
+  res.render('sign-up', {});
+});
 
 app.set('views', __dirname + '/view');
 app.engine('.html', ejs.__express);
