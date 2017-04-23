@@ -2,41 +2,41 @@ var app = angular.module("myApp", []);
 app.controller('pageCtrl',['$scope','$http','$interval',function($scope,$http,$interval){
 	//banner图链接
 	$scope.lunboList=[{
-		pic_url:'../pic/pic1.png'
+		pic_url:'../public/pic/pic1.png'
 	},{
-		pic_url:'../pic/pic2.png'
+		pic_url:'../public/pic/pic2.png'
 	},{
-		pic_url:'../pic/pic3.png'
+		pic_url:'../public/pic/pic3.png'
 	}];
 
 	//标签
 	$scope.tips=[{
-			tips_url:'../pic/tip1.png',
+			tips_url:'../public/pic/tip1.png',
 			tip_name:'上班这点事儿'
 		},{
-			tips_url:'../pic/tip1.png',
+			tips_url:'../public/pic/tip1.png',
 			tip_name:'上班这点事儿'
 		},{
-			tips_url:'../pic/tip1.png',
+			tips_url:'../public/pic/tip1.png',
 			tip_name:'上班这点事儿'
 		},{
-			tips_url:'../pic/tip1.png',
+			tips_url:'../public/pic/tip1.png',
 			tip_name:'上班这点事儿'
 		},{
-			tips_url:'../pic/tip1.png',
+			tips_url:'../public/pic/tip1.png',
 			tip_name:'上班这点事儿'
 		},{
-			tips_url:'../pic/tip1.png',
+			tips_url:'../public/pic/tip1.png',
 			tip_name:'上班这点事儿'
 		},{
-			tips_url:'../pic/tip1.png',
+			tips_url:'../public/pic/tip1.png',
 			tip_name:'上班这点事儿'}];
 	
 	//帖子列表数据
 	$scope.pageList=[{
-		pic_url:'../pic/page-bg.png',
-		author_url:'www.baidu.com',
-		user_pic_url:'../pic/user-pic.png',
+		pic_url:'../public/pic/page-bg.png',
+		author_url:'myself.html',
+		user_pic_url:'../public/pic/user-pic.png',
 		user_name:'宇文书',
 		upload_date:'昨天 11:24',
 		title:'如何拓宽视野、刷新三观？这些书请你一定记得读',
@@ -46,9 +46,9 @@ app.controller('pageCtrl',['$scope','$http','$interval',function($scope,$http,$i
 		reply_num:'24',
 		like_num:'216'
 	},{
-		pic_url:'../pic/page-bg.png',
-		author_url:'www.baidu.com',
-		user_pic_url:'../pic/user-pic.png',
+		pic_url:'../public/pic/page-bg.png',
+		author_url:'myself.html',
+		user_pic_url:'../public/pic/user-pic.png',
 		user_name:'宇文书',
 		upload_date:'昨天 11:24',
 		title:'如何拓宽视野、刷新三观？这些书请你一定记得读',
@@ -58,9 +58,9 @@ app.controller('pageCtrl',['$scope','$http','$interval',function($scope,$http,$i
 		reply_num:'24',
 		like_num:'216'
 	},{
-		pic_url:'../pic/page-bg.png',
-		author_url:'www.baidu.com',
-		user_pic_url:'../pic/user-pic.png',
+		pic_url:'../public/pic/page-bg.png',
+		author_url:'myself.html',
+		user_pic_url:'../public/pic/user-pic.png',
 		user_name:'宇文书',
 		upload_date:'昨天 11:24',
 		title:'如何拓宽视野、刷新三观？这些书请你一定记得读',
@@ -70,9 +70,9 @@ app.controller('pageCtrl',['$scope','$http','$interval',function($scope,$http,$i
 		reply_num:'24',
 		like_num:'216'
 	},{
-		pic_url:'../pic/page-bg.png',
-		author_url:'www.baidu.com',
-		user_pic_url:'../pic/user-pic.png',
+		pic_url:'../public/pic/page-bg.png',
+		author_url:'myself.html',
+		user_pic_url:'../public/pic/user-pic.png',
 		user_name:'宇文书',
 		upload_date:'昨天 11:24',
 		title:'如何拓宽视野、刷新三观？这些书请你一定记得读',
@@ -82,9 +82,9 @@ app.controller('pageCtrl',['$scope','$http','$interval',function($scope,$http,$i
 		reply_num:'24',
 		like_num:'216'
 	},{
-		pic_url:'../pic/page-bg.png',
-		author_url:'www.baidu.com',
-		user_pic_url:'../pic/user-pic.png',
+		pic_url:'../public/pic/page-bg.png',
+		author_url:'myself.html',
+		user_pic_url:'../public/pic/user-pic.png',
 		user_name:'宇文书',
 		upload_date:'昨天 11:24',
 		title:'如何拓宽视野、刷新三观？这些书请你一定记得读',
@@ -94,9 +94,9 @@ app.controller('pageCtrl',['$scope','$http','$interval',function($scope,$http,$i
 		reply_num:'24',
 		like_num:'216'
 	},{
-		pic_url:'../pic/page-bg.png',
-		author_url:'www.baidu.com',
-		user_pic_url:'../pic/user-pic.png',
+		pic_url:'../public/pic/page-bg.png',
+		author_url:'myself.html',
+		user_pic_url:'../public/pic/user-pic.png',
 		user_name:'宇文书',
 		upload_date:'昨天 11:24',
 		title:'如何拓宽视野、刷新三观？这些书请你一定记得读',
@@ -106,9 +106,9 @@ app.controller('pageCtrl',['$scope','$http','$interval',function($scope,$http,$i
 		reply_num:'24',
 		like_num:'216'
 	},{
-		pic_url:'../pic/page-bg.png',
-		author_url:'www.baidu.com',
-		user_pic_url:'../pic/user-pic.png',
+		pic_url:'../public/pic/page-bg.png',
+		author_url:'myself.html',
+		user_pic_url:'../public/pic/user-pic.png',
 		user_name:'宇文书',
 		upload_date:'昨天 11:24',
 		title:'如何拓宽视野、刷新三观？这些书请你一定记得读',

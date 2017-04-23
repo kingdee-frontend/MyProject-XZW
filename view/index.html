@@ -4,23 +4,23 @@
 	<meta charset="UTF-8">
 	<title>首页</title>
 </head>
-<link rel="stylesheet" href="../css/common.css">
-<link rel="stylesheet" href="../css/header.css">
-<link rel="stylesheet" href="../css/demo.css">
+<link rel="stylesheet" href="../public/css/common.css">
+<link rel="stylesheet" href="../public/css/header.css">
+<link rel="stylesheet" href="../public/css/demo.css">
 <body>
 	<nav>
 		<div class="headerMenu">
-			<a href="" class="myLogo btn">我的博客</a>
+			<a href="index.html" class="myLogo btn">我的博客</a>
 			<!-- <a href="" class="registerBtn btn">注册</a> -->
 			<a href="" class="signInBtn btn">写文章</a>
-			<a href="" class="user_head_pic"><img src="http://upload.jianshu.io/users/upload_avatars/2963884/fff1fb89babb?imageMogr2/auto-orient/strip|imageView2/1/w/120/h/120" alt=""></a>
+			<a href="myself.html" class="user_head_pic"><img src="http://upload.jianshu.io/users/upload_avatars/2963884/fff1fb89babb?imageMogr2/auto-orient/strip|imageView2/1/w/120/h/120" alt=""></a>
 		</div>
 	</nav>
 	<figure  ng-app="myApp" ng-controller="pageCtrl">
 		<div class="container">
 			<div class="item" ng-mouseover="hover_()" ng-mouseout="move_()">
 				<div class="banner">
-					<a href="" ng-repeat="lunbo in lunboList">
+					<a href="page.html" ng-repeat="lunbo in lunboList">
 						<img src="{{lunbo.pic_url}}" alt="">
 					</a>
 				</div>
@@ -54,12 +54,16 @@
 										<span>{{page.upload_date}}</span>
 									</div>
 							</div>
-							<h3 class="title">
+							<a href="page.html">
+								<h3 class="title">
 								{{page.title}}
-							</h3>		
-							<p class="abstract">
-								{{page.abstract}}
-							</p>							
+								</h3>		
+							</a>
+							<a href="page.html">
+								<p class="abstract">
+									{{page.abstract}}
+								</p>
+							</a>							
 							<div class="meta">
 								<a href="" class="collection-tag" target="_blank">{{page.collection}}</a>
 								<a href=""><i class="iconfont read-num"></i>{{page.read_num}}</a>
@@ -77,7 +81,7 @@
 	</figure>
 </body>
 </html>
-<script src="../js/angular.min.js"></script>
-<script src="../js/jquery-3.2.1.min.js"></script>
-<script src="../js/iconfont.js"></script>
-<script src="../js/index.js"></script>
+<script src="../public/js/angular.min.js"></script>
+<script src="../public/js/jquery-3.2.1.min.js"></script>
+<script src="../public/js/iconfont.js"></script>
+<script src="../public/js/index.js"></script>
