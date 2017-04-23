@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>首页</title>
+</head>
+<link rel="stylesheet" href="../css/common.css">
+<link rel="stylesheet" href="../css/header.css">
+<link rel="stylesheet" href="../css/demo.css">
+<body>
+	<nav>
+		<div class="headerMenu">
+			<a href="" class="myLogo btn">我的博客</a>
+			<!-- <a href="" class="registerBtn btn">注册</a> -->
+			<a href="" class="signInBtn btn">写文章</a>
+			<a href="" class="user_head_pic"><img src="http://upload.jianshu.io/users/upload_avatars/2963884/fff1fb89babb?imageMogr2/auto-orient/strip|imageView2/1/w/120/h/120" alt=""></a>
+		</div>
+	</nav>
+	<figure  ng-app="myApp" ng-controller="pageCtrl">
+		<div class="container">
+			<div class="item" ng-mouseover="hover_()" ng-mouseout="move_()">
+				<div class="banner">
+					<a href="" ng-repeat="lunbo in lunboList">
+						<img src="{{lunbo.pic_url}}" alt="">
+					</a>
+				</div>
+				<!-- <div class="banner2">
+					<a href="" ng-repeat="lunbo in lunboList">
+						<img src="{{lunbo.pic_url}}" alt="">
+					</a>					
+				</div> -->
+				<span ng-class="{true:'changePrev'}[isHover]" ng-click="prev()">&lt;</span>
+				<span ng-class="{true:'changeNext'}[isHover]" ng-click="next()">&gt;</span>
+			</div>
+			<div class="tips" >
+				<a href="" ng-repeat="tip in tips">
+					<img src="{{tip.tips_url}}" alt="">
+					<div class="name">{{tip.tip_name}}</div>
+				</a>
+			</div>
+			<div class="passageList" >
+				<ul>
+					<li class="passage-li" ng-repeat="page in pageList">
+						<a href="" class="wrap-img">
+							<img src="{{page.pic_url}}" alt="">
+						</a>
+						<div class="content">
+							<div class="author">
+									<a href="{{page.author_url}}" class="avatar">
+										<img src="{{page.user_pic_url}}" alt="">
+									</a>
+									<div class="name">
+										<a href="">{{page.user_name}}</a>
+										<span>{{page.upload_date}}</span>
+									</div>
+							</div>
+							<h3 class="title">
+								{{page.title}}
+							</h3>		
+							<p class="abstract">
+								{{page.abstract}}
+							</p>							
+							<div class="meta">
+								<a href="" class="collection-tag" target="_blank">{{page.collection}}</a>
+								<a href=""><i class="iconfont read-num"></i>{{page.read_num}}</a>
+								<a href=""><i class="iconfont reply-num"></i>{{page.reply_num}}</a>
+								<span><i class="iconfont like-num"></i>{{page.like_num}}</span>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div class="back_top" >
+			<span class="iconfont" >&#x3432;</span>
+		</div>
+	</figure>
+</body>
+</html>
+<script src="../js/angular.min.js"></script>
+<script src="../js/jquery-3.2.1.min.js"></script>
+<script src="../js/iconfont.js"></script>
+<script src="../js/index.js"></script>

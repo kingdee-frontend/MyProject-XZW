@@ -1,0 +1,100 @@
+.sign-main {
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+  width: 400px;
+  margin: 60px auto 0;
+  padding: 50px 50px 30px;
+  text-align: center;
+}
+.sign-main .normal-title {
+  margin-bottom: 50px;
+}
+.sign-main .normal-title a {
+  font-size: 18px;
+  color: #999;
+  padding: 10px;
+}
+.sign-main .normal-title b {
+  color: #999;
+  padding: 10px;
+  font-size: 18px;
+  font-weight: bold;
+  vertical-align: middle;
+}
+.sign-main .normal-title .select {
+  font-weight: 700;
+  color: #ea6f5a;
+  border-bottom: 2px solid #ea6f5a;
+}
+.sign-main form div {
+  position: relative;
+}
+.sign-main form input {
+  width: 100%;
+  height: 50px;
+  font-size: 14px;
+  padding: 4px 12px 4px 35px;
+  border: 1px solid #c8c8c8;
+  border-bottom: none;
+  background-color: rgba(181, 181, 181, 0.1);
+  outline: none;
+}
+.sign-main form ::-webkit-input-placeholder {
+  /* WebKit browsers */
+  color: #999;
+}
+.sign-main form :-moz-placeholder {
+  /* Mozilla Firefox 4 to 18 */
+  color: #999;
+}
+.sign-main form ::-moz-placeholder {
+  /* Mozilla Firefox 19+ */
+  color: #999;
+}
+.sign-main form :-ms-input-placeholder {
+  /* Internet Explorer 10+ */
+  color: #999;
+}
+.sign-main form .name {
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+}
+.sign-main form i {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  margin-top: -10px;
+  font-size: 16px;
+  color: #999;
+}
+.sign-main form .keyword {
+  border-bottom: 1px solid #999;
+}
+.sign-main form .user_name:before {
+  content: "\f007b";
+}
+.sign-main form .tel:before {
+  content: "\e60d";
+}
+.sign-main form .password:before {
+  content: "\e61f";
+}
+.sign-main form .sign-up {
+  cursor: pointer;
+  height: 43px;
+  margin-top: 20px;
+  border: none;
+  background-color: #42c02e;
+  color: #fff;
+  text-align: center;
+  padding: 9px 18px;
+  border-radius: 3px;
+  font-size: 18px;
+}
+.sign-main form p {
+  margin: 10px 0;
+  text-align: center;
+  color: #969696;
+}
+.sign-main form p a {
+  color: #709ff4;
+}
