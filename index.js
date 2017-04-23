@@ -1,0 +1,43 @@
+var express = require('express')
+var app = express()
+var ejs = require('ejs')
+
+app.get('/', function(req, res) {
+  res.render('index', {});
+});
+
+app.get('/index', function(req, res) {
+  res.render('index', {});
+});
+
+app.get('/myself', function(req, res) {
+  res.render('myself', {});
+});
+
+app.get('/page', function(req, res) {
+  res.render('page', {});
+});
+
+app.get('/signup', function(req, res) {
+  res.render('sign-up', {});
+});
+
+
+
+app.set('views', __dirname + '/public/view');
+app.engine('.html', ejs.__express);
+app.set('view engine', 'html');
+
+
+
+
+app.use(express.static('public'));
+
+var server = app.listen(9999, function () {
+ 
+  var host = server.address().address
+  var port = server.address().port
+ 
+  console.log("应用实例，访问地址为 http://%s:%s", host, port)
+ 
+})
