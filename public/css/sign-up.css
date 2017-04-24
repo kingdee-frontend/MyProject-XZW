@@ -38,6 +38,9 @@
   background-color: rgba(181, 181, 181, 0.1);
   outline: none;
 }
+.sign-main form .border {
+  border-bottom: 1px solid #c8c8c8!important;
+}
 .sign-main form ::-webkit-input-placeholder {
   /* WebKit browsers */
   color: #999;
@@ -65,9 +68,6 @@
   margin-top: -10px;
   font-size: 16px;
   color: #999;
-}
-.sign-main form .keyword {
-  border-bottom: 1px solid #999;
 }
 .sign-main form .user_name:before {
   content: "\f007b";

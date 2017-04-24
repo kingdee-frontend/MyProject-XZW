@@ -96,3 +96,38 @@ app.controller('pageCtrl',['$scope','$http','$interval',function($scope,$http,$i
 	}
 
 }]);
+
+
+$('#signIn').on('submit',function(event){
+	var postData = {
+		username:$(this).find('.username').val(),
+		password:$(this).find('.keyword').val(),
+	}
+	//todo:表单验证
+	$.post('/login',postData,function(data){
+		if(data.code!=200){
+			alert(data.err)
+		}else{
+			window.location.href="/"
+		}
+	})
+
+	return false
+})
+$('#signUp').on('submit',function(event){
+	var postData = {
+		username:$(this).find('.username').val(),
+		password:$(this).find('.keyword').val(),
+	}
+	//todo:表单验证
+	$.post('/register',postData,function(data){
+		if(data.code!=200){
+			alert(data.err)
+		}else{
+			alert("注册成功")
+			window.location.href="/"
+		}
+	})
+
+	return false
+})
