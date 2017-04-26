@@ -13,7 +13,6 @@ app.controller('pageCtrl',['$scope','$http',function($scope,$http,$interval){
 		$scope.isFollow=true;
 	}
 	$scope.default=function(){
-		debugger
 		$scope.isFollow=false;
 	}
 	$scope._reply = function(){
