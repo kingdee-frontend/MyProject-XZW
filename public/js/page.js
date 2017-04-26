@@ -1,5 +1,5 @@
 var app = angular.module("myApp",[]);
-app.controller('pageCtrl',['$scope','$http',function($scope,$http){
+app.controller('pageCtrl',['$scope','$http',function($scope,$http,$interval){
 	window.$scope = $scope
 	window.$http = $http
 	window.$interval = $interval
@@ -13,6 +13,7 @@ app.controller('pageCtrl',['$scope','$http',function($scope,$http){
 		$scope.isFollow=true;
 	}
 	$scope.default=function(){
+		debugger
 		$scope.isFollow=false;
 	}
 	$scope._reply = function(){
