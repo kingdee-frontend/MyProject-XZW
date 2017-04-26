@@ -1,5 +1,8 @@
 var app = angular.module("myApp",[]);
 app.controller('pageCtrl',['$scope','$http',function($scope,$http){
+	window.$scope = $scope
+	window.$http = $http
+	window.$interval = $interval
 	$scope.isFollow = false;
 	$scope.isReply = false;
 	$scope.isFocus = false;

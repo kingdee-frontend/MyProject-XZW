@@ -130,9 +130,13 @@ LIMIT 10`
 })
 //退出登录
 app.get('/loginout',function(req,res){
-  res.session.userId=0
-  res.session.username=""
-  res.sendMessage(res,"退出成功")
+  req.session.userId=0
+  req.session.username=""
+  var url = req.originalUrl
+  console.log(url)
+  res.redirect(url)
+  res.end()
+  // res.sendMessage(res,"退出成功")
 })
 
 //退出登录
