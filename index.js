@@ -4,6 +4,8 @@ var ejs = require('ejs')
 var mysql = require('./mysql')
 var bodyParser = require('body-parser')
 var session = require('express-session')
+var ueditor = require("ueditor")
+var path = require('path')
 var { isValidate, sendError, sendSuccess, sendMessage } = require('./util')
 app.use(session({
   secret: 'zhiwei', //secret的值建议使用随机字符串
@@ -49,6 +51,10 @@ LIMIT 1`
 
 app.get('/sign-in.html', function (req, res) {
   res.render('sign-in', { session: req.session });
+});
+
+app.get('/editor.html', function (req, res) {
+  res.render('edit', { session: req.session });
 });
 
 app.get('/sign-up.html', function (req, res) {
@@ -132,14 +138,10 @@ LIMIT 10`
 app.get('/loginout',function(req,res){
   req.session.userId=0
   req.session.username=""
-  var url = req.originalUrl
-  console.log(url)
-  res.redirect(url)
-  res.end()
-  // res.sendMessage(res,"退出成功")
+  res.redirect("/")
 })
 
-//退出登录
+//获取文章
 app.get('/getArticleById',function(req,res){
   var id = parseInt(req.query.id)
   console.log(id)
@@ -161,6 +163,32 @@ LIMIT 1`
   }, res)
   }
 })
+
+
+app.use("/ueditor/ue", ueditor(path.join(__dirname, 'public'), function(req, res, next) {
+ 
+  // ueditor 客户发起上传图片请求 
+ 
+  if(req.query.action === 'uploadimage'){
+ 
+    // 这里你可以获得上传图片的信息 
+    var foo = req.ueditor;
+    // 下面填写你要把图片保存到的路径 （ 以 path.join(__dirname, 'public') 作为根路径） 
+    var img_url = 'upload';
+    res.ue_up(img_url); //你只要输入要保存的地址 。保存操作交给ueditor来做 
+  }
+  //  客户端发起图片列表请求 
+  else if (req.query.action === 'listimage'){
+    var dir_url = 'upload'; // 要展示给客户端的文件夹路径 
+    res.ue_list(dir_url) // 客户端会列出 dir_url 目录下的所有图片 
+  }
+  // 客户端发起其它请求 
+  else {
+ 
+    res.setHeader('Content-Type', 'application/json');
+    // 这里填写 ueditor.config.json 这个文件的路径 
+    res.redirect('/ueditor/ueditor.config.json')
+}}));
 
 
 app.set('views', __dirname + '/view');
