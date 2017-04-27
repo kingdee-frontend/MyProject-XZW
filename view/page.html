@@ -3,6 +3,11 @@
 <head>
 	<meta charset="UTF-8">
 	<title>内容</title>
+	<style>
+		.show-content img{
+			max-width: 100%;
+		}
+	</style>
 </head>
 <link rel="stylesheet" href="/css/common.css">
 <link rel="stylesheet" href="/css/page.css">
@@ -14,12 +19,12 @@
 			<h1 class="title"><%=data.title%></h1>
 			<div class="author">
 				<a href="myself.html" class="avatar">
-					<img src="<%=data.user_pic_url%>" alt="">
+					<img src="/pic/user-pic.png" alt="">
 				</a>
 				<div class="info">
 					<span class="author_tip">作者</span>
 					<span class="name">
-						<a href="">小米薏仁粥</a>
+						<a href=""><%=data.username%></a>
 					</span>
 					<a href="javascript:void(0);" class="follow" ng-show="!isFollow" ng-click="follow()">
 						<i class="iconfont add"></i>
@@ -39,7 +44,7 @@
 				</div>
 			</div>
 			<div class="show-content">
-				<%=data.abstract%>
+				<%-data.content||data.abstract%>
 			</div>
 			<div class="reply-box">	
 				<form action="" class="new-conment">

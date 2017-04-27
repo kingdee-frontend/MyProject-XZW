@@ -6,19 +6,17 @@ var bodyParser = require('body-parser')
 var session = require('express-session')
 var ueditor = require("ueditor")
 var path = require('path')
-var { isValidate, sendError, sendSuccess, sendMessage } = require('./util')
+var { isValidate, sendError, sendSuccess, sendMessage,islogin } = require('./util')
 app.use(session({
   secret: 'zhiwei', //secret的值建议使用随机字符串
   cookie: { maxAge: 60 * 1000 * 30 } // 过期时间（毫秒）
 }));
 app.use(bodyParser.urlencoded({ extended: false }))
 app.get('/', function (req, res) {
-    console.log({ session: req.session })
     res.render('index', { session: req.session });
 });
 
 app.get('/index.html', function (req, res) {
-    console.log({ session: req.session })
     res.render('index', { session: req.session });
 });
 
@@ -28,15 +26,17 @@ app.get('/myself.html', function (req, res) {
 
 app.get('/page/:id', function (req, res) {
   var id = parseInt(req.params.id)
-  console.log(id)
   if(!(id>0)){
     sendError(res,"缺少文章参数")
   }else{
     var sql = `SELECT
-article.*
+article.*,
+user.username
 FROM
 article
-WHERE id = "${id}"
+JOIN user
+ON article.userId = user.id
+WHERE article.id = "${id}"
 LIMIT 1`
   mysql.query(sql, function (rows) {
     if (rows.length > 0) {
@@ -46,7 +46,6 @@ LIMIT 1`
     }
   }, res)
   }
-  console.log(req.params.id)
 });
 
 app.get('/sign-in.html', function (req, res) {
@@ -54,6 +53,7 @@ app.get('/sign-in.html', function (req, res) {
 });
 
 app.get('/editor.html', function (req, res) {
+  if(!islogin(req,res))return
   res.render('edit', { session: req.session });
 });
 
@@ -71,16 +71,13 @@ app.post('/register', function (req, res) {
   if (!isValidate(post)) sendError(res, '缺少用户名或者密码')
   var userQuery = `Select 'id' from user where username = "${post.username}"`
   mysql.query(userQuery, function (rows) {
-    console.log(rows)
     if (rows.length > 0) {
       sendError(res, '该用户已经注册')
     } else {
       var sql = `INSERT INTO user ( username, password )
                        VALUES
                        ( "${post.username}", "${post.password}" );`
-      console.log(sql)
       mysql.query(sql, function (rows) {
-        console.log(rows.insertId)
         req.session.userId = rows.insertId
         req.session.username = post.username
         sendSuccess(res, "注册成功")
@@ -144,7 +141,6 @@ app.get('/loginout',function(req,res){
 //获取文章
 app.get('/getArticleById',function(req,res){
   var id = parseInt(req.query.id)
-  console.log(id)
   if(!(id>0)){
     sendError(res,"缺少文章参数")
   }else{
@@ -164,6 +160,36 @@ LIMIT 1`
   }
 })
 
+
+app.post('/article',function(req,res){
+  if(!islogin(req,res))return 
+  var content  = req.body
+  var post = {
+    title:content.title||"",
+    collection:content.collection||"",
+    content:content.editorValue||"",
+    abstract:content.abstract||""
+  }
+  if(post.title&&post.collection&&post.abstract&&post.content){
+    post.userId = req.session.userId
+    post.upload_date = +new Date()
+    var sql = `INSERT INTO article ( upload_date, title,abstract,collection,userId,content )
+                       VALUES
+                       ( "${post.upload_date}", "${post.title}",'${post.abstract}',"${post.collection}","${post.userId}",'${post.content}' );`
+
+    mysql.query(sql, function (rows) {
+      if (rows.insertId > 0) {
+          res.redirect("/")
+          return
+      }else{
+        sendError(res,"数据库插入错误")
+      }
+    }, res)
+   }else{
+    sendError(res,"缺少参数")
+    return 
+  }
+})
 
 app.use("/ueditor/ue", ueditor(path.join(__dirname, 'public'), function(req, res, next) {
  
@@ -191,6 +217,9 @@ app.use("/ueditor/ue", ueditor(path.join(__dirname, 'public'), function(req, res
 }}));
 
 
+
+
+
 app.set('views', __dirname + '/view');
 app.engine('.html', ejs.__express);
 app.set('view engine', 'html');
@@ -204,7 +233,6 @@ var server = app.listen(9999, function () {
 
   var host = server.address().address
   var port = server.address().port
-
   console.log("应用实例，访问地址为 http://%s:%s", host, port)
 
 })

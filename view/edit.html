@@ -3,18 +3,22 @@
 <head>
     <title>发表文章</title>
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+    <link rel="stylesheet" href="/css/editor.css">
 </head>
-<link rel="stylesheet" href="/css/editor.css">
 <body>
 <div>
-    <form action="" class="edit">
-        <select name="" id="my_tips" >
-            <option value="">请选择文章分类</option>
-            <option value="">历史</option>
-            <option value="">历史</option>
-        </select><br>
+    <form action="/article" class="edit" method="post">
+        <label for="">分类：
+            <select name="collection" id="my_tips" >
+                <option value="历史">历史</option>
+                <option value="其他">其他</option>
+            </select>
+        </label>
+        <br>
         <label for="edit_title" class="edit_title">文章标题：</label>
-        <input id="edit_title" type="text">
+        <input id="edit_title" name="title" type="text">
+        <label for="abstract" class="edit_title">文章摘要：</label>
+        <input id="edit_title" name="abstract" type="text">
         <p class="edit_content">内容：</p>
         <textarea name="" id="editor" cols="30" rows="10"></textarea>
         <input type="submit" class="btn" value="发表">

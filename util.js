@@ -16,7 +16,14 @@ var sendMessage = function(res,data){
     return res.json(msg)
 }
 
+var islogin = function(req,res){
+    if(req.session.userId>0)return req.session.userId
+    sendError(res,"请先登录")
+    return false
+}
+
 module.exports.isValidate = isValidate
 module.exports.sendError = sendError
 module.exports.sendSuccess = sendSuccess
 module.exports.sendMessage = sendMessage
+module.exports.islogin = islogin
