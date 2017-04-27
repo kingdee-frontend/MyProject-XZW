@@ -7,7 +7,12 @@ $(function(){
 	}
 	$scope.mouseout_ = function(){
 		$scope.isSign = false;
-	}	
+	}
+	$('[type="login"]').each(function(){
+		$(this).attr('href',$(this).attr('href')+'?url='+encodeURIComponent(location.href))
+	})
+	
+	
 })
 	
 // }]);

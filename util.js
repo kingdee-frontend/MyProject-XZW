@@ -12,7 +12,7 @@ var sendSuccess = function(res,msg){
     return sendMessage(res,{msg:msg,code:200})
 }
 var sendMessage = function(res,data){
-    var msg = Object.assign({},data)
+    var msg = Object.assign({code:200},data)
     return res.json(msg)
 }
 

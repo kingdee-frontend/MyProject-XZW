@@ -21,36 +21,31 @@ app.controller('pageCtrl',['$scope','$http',function($scope,$http,$interval){
 	$scope.cancel = function(){
 		this.isReply = false;
 		this.isFocus = false;
-	}	
-	$scope.replyList = [{
-		txt:'这是一条评论。',
-		user_pic:'http://upload.jianshu.io/users/upload_avatars/2963884/fff1fb89babb?imageMogr2/auto-orient/strip|imageView2/1/w/120/h/120',
-		user_name:'早更',
-		displayorder:'1',
-		post_date:'2017-4-10'
-	},{
-		txt:'这是一条评论。',
-		user_pic:'http://upload.jianshu.io/users/upload_avatars/2963884/fff1fb89babb?imageMogr2/auto-orient/strip|imageView2/1/w/120/h/120',
-		user_name:'早更',
-		displayorder:'1',
-		post_date:'2017-4-10'
-	},{
-		txt:'这是一条评论。',
-		user_pic:'http://upload.jianshu.io/users/upload_avatars/2963884/fff1fb89babb?imageMogr2/auto-orient/strip|imageView2/1/w/120/h/120',
-		user_name:'早更',
-		displayorder:'1',
-		post_date:'2017-4-10'
-	},{
-		txt:'这是一条评论。',
-		user_pic:'http://upload.jianshu.io/users/upload_avatars/2963884/fff1fb89babb?imageMogr2/auto-orient/strip|imageView2/1/w/120/h/120',
-		user_name:'早更',
-		displayorder:'1',
-		post_date:'2017-4-10'
-	},{
-		txt:'这是一条评论。',
-		user_pic:'http://upload.jianshu.io/users/upload_avatars/2963884/fff1fb89babb?imageMogr2/auto-orient/strip|imageView2/1/w/120/h/120',
-		user_name:'早更',
-		displayorder:'1',
-		post_date:'2017-4-10'
-	}]
+	}
+	$scope.postComment = function(){
+		var articleId= location.pathname.match(/page\/(\d+)$/)[1]
+		var post = {
+			articleId:articleId,
+			comment:$('#comment').val()
+		}
+		console.log(post)
+		$.post('/addComment',post,function(data){
+			if(data.code==200){
+				alert('评论成功')
+				window.location.reload()
+			}else{
+				alert(data.err)
+			}
+		})
+		
+	}
+	$scope.replyList = []
+	$scope.getComment = function(){
+		window.$scope = $scope
+		var articleId= location.pathname.match(/page\/(\d+)$/)[1]
+		$http.get('/comment?articleId='+articleId).then(function(data){
+			$scope.replyList = data.data.data
+		})
+	}
+	$scope.getComment()
 }]);

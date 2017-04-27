@@ -135,7 +135,14 @@ LIMIT 10`
 app.get('/loginout',function(req,res){
   req.session.userId=0
   req.session.username=""
-  res.redirect("/")
+  var url = req.query.url
+  if(url){
+    url = decodeURIComponent(url)
+    res.redirect(url)
+  }else{
+    res.redirect("/")
+  }
+  
 })
 
 //获取文章
@@ -159,8 +166,55 @@ LIMIT 1`
   }, res)
   }
 })
+//获取评论
+app.get('/comment',function(req,res){
+  var articleId = parseInt(req.query.articleId)
+  if(!articleId){
+    sendError(res,'缺少articleid')
+    return 
+  }
+  var sql = `SELECT
+comment.*,
+user.username
+FROM
+comment
+JOIN user
+ON comment.userId = user.id
+WHERE
+comment.articleId = ${articleId} ORDER BY comment.id DESC`
+  mysql.query(sql, function (rows) {
+    sendMessage(res,{data:rows})
+  }, res)
+})
+//评论
+app.post('/addComment',function(req,res){
+  if(!islogin(req,res))return
+  var content  = req.body
+  var post = {
+    articleId:content.articleId,
+    userId:req.session.userId,
+    comment:content.comment,
+  }
+  if(post.articleId&&post.userId&&post.comment){
+    var sql  = `INSERT INTO comment ( articleId, userId,comment,time )
+                       VALUES
+                       ( "${post.articleId}", "${post.userId}",'${post.comment}',${+new Date()});`
+    mysql.query(sql, function (rows) {
+      if (rows.insertId > 0) {
+          sendSuccess(res,"评论成功")
+          return
+      }else{
+        sendError(res,"数据库插入错误"+JSON.stringify(rows))
+      }
+    }, res)
+  }else{
+    sendError(res,"缺少参数")
+    return 
+  }
+})
 
 
+//发布文章
 app.post('/article',function(req,res){
   if(!islogin(req,res))return 
   var content  = req.body

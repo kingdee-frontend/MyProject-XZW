@@ -2,15 +2,15 @@
     <div class="headerMenu">
         <a href="/" class="myLogo btn">我的博客</a>
         <%if(!session.userId){%>
-        <a href="/sign-up.html" class="registerBtn btn">注册</a>
-        <a href="/sign-in.html" class="registerBtn btn">登录</a>
+        <a type="login" href="/sign-up.html" class="registerBtn btn">注册</a>
+        <a type="login" href="/sign-in.html" class="registerBtn btn">登录</a>
         <%}else{%>
         <a href="/editor.html" class="signInBtn btn">写文章</a>
          <a href="/myself.html" class="user_head_pic" ng-mouseover="mouseover_()" ng-mouseout="mouseout_()"><img src="http://upload.jianshu.io/users/upload_avatars/2963884/fff1fb89babb?imageMogr2/auto-orient/strip|imageView2/1/w/120/h/120" alt=""></a> 
         <div ng-show="isSign" class="my_list" ng-mouseover="mouseover_()" ng-mouseout="mouseout_()">
             <ul>
                 <li><a href="/myself.html">个人主页</a></li>
-                <li><a href="/loginout">退出登录</a></li>
+                <li><a type="login" href="/loginout">退出登录</a></li>
             </ul>
         </div>         
         <%} %>

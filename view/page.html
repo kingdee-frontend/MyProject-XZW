@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>内容</title>
+	<title><%=data.title%></title>
 	<style>
 		.show-content img{
 			max-width: 100%;
@@ -51,46 +51,46 @@
 					<a href="myself.html" class="avatar">
 						<img src="http://upload.jianshu.io/users/upload_avatars/2963884/fff1fb89babb?imageMogr2/auto-orient/strip|imageView2/1/w/120/h/120" alt="">
 					</a>
-					<textarea name="" id="" cols="30" rows="10" placeholder="写下你的评论" class="edit_txt" ng-focus="Focus()"></textarea>
+					<textarea name="" id="comment" cols="30" rows="10" placeholder="写下你的评论" class="edit_txt" ng-focus="Focus()"></textarea>
 					<div class="write-operation">
-						<a href="" class="send" ng-show="isFocus">发送</a>
+						<a href=""  ng-click="postComment()" class="send" ng-show="isFocus">发送</a>
 						<a href="" class="cancel" ng-show="isFocus" ng-click="cancel()">取消</a>
 					</div>
 				</form>
 				<div class="reply-list">
 					<div class="read-operation">
 						<span class="reply-num">1011条评论</span>
-						<a href="">只看作者</a>
+						<!--<a href="">只看作者</a>
 						<a href="">关闭评论</a>
 						<div class="pull-right">
 							<a href="">按时间正序</a>
 							<a href="">按时间倒序</a>
-						</div>
+						</div>-->
 					</div>
 					<div class="reply-floor" ng-repeat="reply in replyList">
 						<div class="author">
-							<a href="myself.html" class="avatar">
-								<img src="{{reply.user_pic}}" alt="">
+							<a href="/myself.html" class="avatar">
+								<img src="http://upload.jianshu.io/users/upload_avatars/2963884/fff1fb89babb?imageMogr2/auto-orient/strip|imageView2/1/w/120/h/120" alt="">
 							</a>
 							<div class="info">
-								<a href="" class="name">{{reply.user_name}}</a>
+								<a href="" class="name">{{reply.username}}</a>
 								<div class="meta">
-									<span>{{reply.displayorder}}楼 {{reply.post_date}}</span>
+									<span>{{$index+1}}楼 {{reply.time|date:'yyyy-MM-dd'}}</span>
 								</div>
 							</div>
 						</div>
 						<div class="reply-content" >
-							<p>{{reply.txt}}</p>
-							<div>
+							<p>{{reply.comment}}</p>
+							<!--<div>
 								<a href="" class="reply-btn" ng-click="_reply()">
 									<i class="iconfont reply-bg"></i>
 									<span>回复</span>
 								</a>
-							</div>
+							</div>-->
 							<div ng-show="isReply">
 								<textarea name="" id="" cols="30" rows="10" placeholder="写下你的评论" class="edit_txt"></textarea>
 								<div class="write-operation">
-									<a href="" class="send" >发送</a>
+									<a href="" ng-click="postComment()" class="send" >发送</a>
 									<a href="" class="cancel" ng-click="cancel()">取消</a>
 								</div>						
 							</div>
