@@ -18,50 +18,53 @@
 				<div class="info">
 					<h3>取个名字真的要长</h3>
 					<div>
-						<a href=""><p>1</p> 关注</a>
-						<a href=""><p>2</p> 粉丝</a>
-						<a href=""><p>3</p> 文章</a>
+						<!-- <a href=""><p>1</p> 关注</a> -->
+						<a href=""><p>2</p>评论</a>
+						<a href=""><p>3</p>文章</a>
 					</div>
 				</div>
 			</div>
 			<div class="tab_menu">
 				<ul>
-					<li class="select">文章</li>
-					<li>关注</li>
-					<li>评论</li>
+					<li ng-class="{true:'select'}[isPage]" ng-click="tabPage()">文章</li>
+					<!-- <li>关注</li> -->
+					<li ng-class="{true:'select'}[!isPage]" ng-click="tabReply()">评论</li>
 				</ul>
 			</div>
 			<div class="tab_content">
-				<ul>
-					<li>
+				<ul ng-show="isPage">
+					<li ng-repeat="page in pageList">
 						<div class="passage_author">
 							<a href="myself.html" class="avatar">
 								<img src="/pic/user1.png" alt="">
 							</a>
 							<div class="name">
-								<a href="">我的昵称</a>
-								<span>31分钟前</span>
+								<a href="">{{page.user_name}}</a>
+								<span>{{page.upload_date}}</span>
 							</div>
 						</div>
 						<a href="page.html">
 							<h3 class="title">
-								无标题文章
+								{{page.title}}
 							</h3>
 						</a>	
 						<a href="page.html">	
 							<p class="abstract">
-								今天雨真大
+								{{page.abstract}}
 							</p>
 						</a>							
 						<div class="meta">
-							<a href=""><i class="iconfont read-num"></i>20</a>
-							<a href=""><i class="iconfont reply-num"></i>30</a>
-							<span><i class="iconfont like-num"></i>12</span>			
+							<a href=""><i class="iconfont read-num"></i></a>
+							<a href=""><i class="iconfont reply-num"></i></a>
+							<span><i class="iconfont like-num"></i></span>			
 						</div>
 					</li>					
 				</ul>
+				<ul ng-show="!isPage">
+					<li><a href="">这是一条评论</a></li>
+				</ul>
 			</div>
-			<div class="follow_author">
+			<!-- <div class="follow_author">
 				<a href="myself.html" class="avatar">
 					<img src="/pic/user1.png" alt="">
 				</a>
@@ -75,7 +78,7 @@
 						<span>被256人关注</span>
 						<span>发表了50篇文章</span>
 					</p>
-				</a>
+				</a> -->
 <!-- 				<a href="" class="add_follow">
 					<i class="iconfont add"></i>
 					<span>加关注</span>
@@ -84,7 +87,7 @@
 					<i class="iconfont cancel"></i>
 					<span>取消关注</span>
 				</a> -->
-			</div>
+			<!-- </div> -->
 		</div>
 	</figure>
 </body>

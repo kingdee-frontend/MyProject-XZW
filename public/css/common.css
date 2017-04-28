@@ -30,6 +30,7 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 .headerMenu {
+  border-bottom: 1px solid #f0f0f0;
   background-color: #fff;
   z-index: 100;
   position: fixed;
@@ -84,6 +85,13 @@ body {
   font-weight: bold;
   color: #ea6f5a;
   letter-spacing: 0.8px;
+}
+.headerMenu .index_btn {
+  display: inline-block;
+  font-size: 20px;
+  line-height: 56px;
+  margin-left: 167px;
+  color: #ea6f5a;
 }
 .headerMenu .registerBtn {
   float: right;

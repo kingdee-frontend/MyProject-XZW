@@ -13,27 +13,27 @@ app.controller('pageCtrl',['$scope','$http','$interval',function($scope,$http,$i
 	}];
 
 	//标签
-	$scope.tips=[{
-			tips_url:'/pic/tip1.png',
-			tip_name:'上班这点事儿'
-		},{
-			tips_url:'/pic/tip1.png',
-			tip_name:'上班这点事儿'
-		},{
-			tips_url:'/pic/tip1.png',
-			tip_name:'上班这点事儿'
-		},{
-			tips_url:'/pic/tip1.png',
-			tip_name:'上班这点事儿'
-		},{
-			tips_url:'/pic/tip1.png',
-			tip_name:'上班这点事儿'
-		},{
-			tips_url:'/pic/tip1.png',
-			tip_name:'上班这点事儿'
-		},{
-			tips_url:'/pic/tip1.png',
-			tip_name:'上班这点事儿'}];
+	// $scope.tips=[{
+	// 		tips_url:'/pic/tip1.png',
+	// 		tip_name:'上班这点事儿'
+	// 	},{
+	// 		tips_url:'/pic/tip1.png',
+	// 		tip_name:'上班这点事儿'
+	// 	},{
+	// 		tips_url:'/pic/tip1.png',
+	// 		tip_name:'上班这点事儿'
+	// 	},{
+	// 		tips_url:'/pic/tip1.png',
+	// 		tip_name:'上班这点事儿'
+	// 	},{
+	// 		tips_url:'/pic/tip1.png',
+	// 		tip_name:'上班这点事儿'
+	// 	},{
+	// 		tips_url:'/pic/tip1.png',
+	// 		tip_name:'上班这点事儿'
+	// 	},{
+	// 		tips_url:'/pic/tip1.png',
+	// 		tip_name:'上班这点事儿'}];
 	
 	//帖子列表数据
 	$scope.pageList=[];

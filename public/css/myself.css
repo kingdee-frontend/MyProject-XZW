@@ -87,10 +87,13 @@
   margin-left: 5px;
 }
 .container .tab_content .title {
+  color: #212b3a;
+  display: inline-block;
   font-size: 18px;
   margin-bottom: 4px;
 }
 .container .tab_content .abstract {
+  color: #212b3a;
   margin: 0 0 8px;
   font-size: 13px;
   line-height: 24px;

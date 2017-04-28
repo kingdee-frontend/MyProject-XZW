@@ -47,5 +47,5 @@ app.controller('pageCtrl',['$scope','$http',function($scope,$http,$interval){
 			$scope.replyList = data.data.data
 		})
 	}
-	$scope.getComment()
+	$scope.getComment();
 }]);

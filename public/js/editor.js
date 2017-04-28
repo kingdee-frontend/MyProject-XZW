@@ -72,3 +72,9 @@ function clearLocalData () {
     ue.execCommand( "clearlocaldata" );
     alert("已清空草稿箱")
 }
+var app = angular.module("myApp", []);
+app.controller('pageCtrl',['$scope','$http','$interval',function($scope,$http,$interval){
+    window.$scope = $scope
+    window.$http = $http
+    window.$interval = $interval
+}]);
