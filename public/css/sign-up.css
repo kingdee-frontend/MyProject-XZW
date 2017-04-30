@@ -110,18 +110,17 @@
 .sign-main form p a {
   color: #709ff4;
 }
-.sign-main .sign-up-box .password_warn,
 .sign-main .sign-up-box .warn {
   border: 1px solid #ea6f5a;
   padding: 10px 15px;
   color: #969696;
+  width: 177px;
   font-size: 14px;
   position: absolute;
   right: -194px;
   top: 0;
   border-radius: 3px;
 }
-.sign-main .sign-up-box .password_warn:before,
 .sign-main .sign-up-box .warn:before {
   content: '';
   position: absolute;
@@ -135,7 +134,4 @@
   height: 8px;
   transform: rotate(45deg);
   background-color: #fff;
-}
-.sign-main .sign-up-box .password_warn {
-  right: -165px;
 }

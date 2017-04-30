@@ -1,15 +1,12 @@
 var app = angular.module("myApp", []);
 app.controller('pageCtrl',['$scope','$http','$interval',function($scope,$http,$interval){
-	$scope.isError = false;
-	$scope.isDif = false;
+	window.$scope=$scope
 	$scope.warnOn = function(){
-		var len = $scope.myValue.length;
+		var len = $scope.user.content.length;
 		if(len>16){
-			$scope.isError = true;
-			$scope.isLong = true;
+			$scope.user.long = true;
 		}else{
-			$scope.isError = false;
-			$scope.isLong = false;
+			$scope.user.long = false;
 		}
 	}
 }]);
