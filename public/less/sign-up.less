@@ -111,4 +111,33 @@
 			}
 		}
 	}
+	.sign-up-box{
+		.password_warn,.warn{
+			border:1px solid #ea6f5a;
+			padding:10px 15px;
+			color:#969696;
+			font-size:14px;
+			position:absolute;
+			right:-194px;
+			top:0;
+			border-radius:3px;
+		}
+		.password_warn:before,.warn:before{
+			content:'';
+			position:absolute;
+			left:-5px;
+			top:50%;
+			margin-top:-5px;
+			display:inline-block;
+			border:1px solid;
+			border-color:#fff #fff #ea6f5a #ea6f5a;
+			width:8px;
+			height:8px;
+			transform:rotate(45deg);
+			background-color:#fff;
+		}
+		.password_warn{
+			right:-165px;
+		}
+	}
 }

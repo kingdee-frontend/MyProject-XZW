@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="/css/common.css">
 <link rel="stylesheet" href="/css/sign-up.css">
 <link rel="stylesheet" href="/css/demo.css">
-<body>
+<body ng-app="myApp" ng-controller="pageCtrl" ng-cloak>
 	<div class="sign-main">
 		<h3 class="title">
 			<div class="normal-title">
@@ -19,8 +19,12 @@
 		<div class="sign-up-box">
 			<form action="" id="signUp">
 				<div>
-					<input type="text" placeholder="你的昵称" class="username">
+					<input type="text" placeholder="你的昵称" class="username" ng-change="warnOn()" ng-model="myValue">
 					<i class="iconfont user_name"></i>
+					<div class="warn" ng-show="isError">
+						<span ng-show="isLong">用户名最长为16个字符</span>
+						<span ng-show="isWrong">请勿输入带有% $ # *等特殊字符</span>
+					</div>
 				</div>
 				<div>
 					<input type="password" placeholder="设置密码" class="keyword">
@@ -29,12 +33,15 @@
 				<div>
 					<input type="password" placeholder="再次输入密码" class="border keyword">
 					<i class="iconfont password"></i>
+					<div class="password_warn" ng-show="isDif">
+						<span>两次密码不一致！</span>
+					</div>
 				</div>
 				<div>
 					<input type="submit" value="注册" class="sign-up">
 				</div>
 				<p>
-					点击“注册”即表示您同意并愿意遵守<br><a href="">用户协议</a> 和 <a href="">隐私政策</a> 
+					点击“注册”即表示您同意并愿意遵守<br><a href="">用户协议</a> 和 <a href="">隐私政策</a>
 				</p>
 			</form>
 		</div>
@@ -45,3 +52,4 @@
 <script src="/js/jquery-3.2.1.min.js"></script>
 <script src="/js/iconfont.js"></script>
 <script src="/js/index.js"></script>
+<script src="/js/sign-up.js"></script>

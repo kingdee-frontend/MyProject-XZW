@@ -120,6 +120,16 @@
   font-size: 14px;
   content: "\e604";
 }
+.container .tab_content li {
+  border-bottom: 1px dotted #969696;
+  padding-bottom: 15px;
+  margin-bottom: 15px;
+}
+.container .tab_content li .my_reply {
+  margin-bottom: 15px;
+  color: #969696;
+  font-size: 18px;
+}
 .container .follow_author {
   width: 80%;
   padding: 20px;

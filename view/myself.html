@@ -61,7 +61,35 @@
 					</li>					
 				</ul>
 				<ul ng-show="!isPage">
-					<li><a href="">这是一条评论</a></li>
+					<li ng-repeat="page in pageList">
+						<div class="my_reply_li">
+							<p class="my_reply">这是我的一条评论</p>
+							<div class="passage_author">
+								<a href="myself.html" class="avatar">
+									<img src="/pic/user1.png" alt="">
+								</a>
+								<div class="name">
+									<a href="">{{page.user_name}}</a>
+									<span>{{page.upload_date}}</span>
+								</div>
+							</div>
+							<a href="page.html">
+								<h3 class="title">
+									{{page.title}}
+								</h3>
+							</a>	
+							<a href="page.html">	
+								<p class="abstract">
+									{{page.abstract}}
+								</p>
+							</a>							
+							<div class="meta">
+								<a href=""><i class="iconfont read-num"></i></a>
+								<a href=""><i class="iconfont reply-num"></i></a>
+								<span><i class="iconfont like-num"></i></span>			
+							</div>							
+						</div>
+					</li>
 				</ul>
 			</div>
 			<!-- <div class="follow_author">
