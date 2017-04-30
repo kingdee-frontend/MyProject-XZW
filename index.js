@@ -21,7 +21,19 @@ app.get('/index.html', function (req, res) {
 });
 
 app.get('/myself.html', function (req, res) {
-  res.render('myself', { session: req.session });
+  var id = parseInt(req.query.id)
+  if(!(id>0)){
+    sendError(res,"缺少用户id")
+    return
+  }
+  var sql = `Select * from user where id = ${id} Limit 1`
+  mysql.query(sql, function (rows) {
+    if (rows.length > 0) {
+        res.render('myself', { session: req.session,data:rows[0] });
+    }else{
+      sendError(res,"没有找到该用户")
+    }
+  }, res)
 });
 
 app.get('/page/:id', function (req, res) {
@@ -119,18 +131,90 @@ app.post('/login', function (req, res) {
 //获取首页文章列表
 app.get('/getArticle', function (req, res) {
   var sql = `SELECT
-article.*
+article.*,
+user.username
 FROM
 article
+JOIN user
+ON article.userId = user.id
 ORDER BY
 article.id DESC
 LIMIT 10`
+//   var sql = `SELECT
+// article.*
+// FROM
+// article
+// ORDER BY
+// article.id DESC
+// LIMIT 10`
   mysql.query(sql, function (rows) {
     if (rows.length > 0) {
       sendMessage(res, { data: rows })
     }
   }, res)
 })
+
+//获取用户中心文章列表
+app.get('/getArticleById', function (req, res) {
+  var id = parseInt(req.query.id)
+  if(!(id>0)){
+    sendError(res,"缺少文章参数")
+  }else{
+    var sql = `SELECT
+article.*,
+user.username
+FROM
+article
+JOIN user
+ON article.userId = user.id
+WHERE article.userId = ${id}
+ORDER BY
+article.id DESC
+`
+//   var sql = `SELECT
+// article.*
+// FROM
+// article
+// ORDER BY
+// article.id DESC
+// LIMIT 10`
+  mysql.query(sql, function (rows) {
+    if (rows.length > 0) {
+      sendMessage(res, { data: rows })
+    }else{
+      sendError(res,"没有找到数据")
+    }
+  }, res)
+  }
+  
+})
+
+
+//获取用户中心评论列表
+app.get('/getCommentById', function (req, res) {
+  var id = parseInt(req.query.id)
+  if(!(id>0)){
+    sendError(res,"缺少文章参数")
+  }else{
+    var sql = `SELECT
+*
+FROM
+comment
+WHERE userId = ${id}
+ORDER BY
+id DESC
+`
+  mysql.query(sql, function (rows) {
+    if (rows.length > 0) {
+      sendMessage(res, { data: rows })
+    }else{
+      sendError(res,"没有找到数据")
+    }
+  }, res)
+  }
+  
+})
+
 //退出登录
 app.get('/loginout',function(req,res){
   req.session.userId=0
@@ -216,20 +300,24 @@ app.post('/addComment',function(req,res){
 
 //发布文章
 app.post('/article',function(req,res){
+  debugger
   if(!islogin(req,res))return 
   var content  = req.body
+  console.log(content)
   var post = {
     title:content.title||"",
     collection:content.collection||"",
     content:content.editorValue||"",
-    abstract:content.abstract||""
+    abstract:content.abstract||"",
+    pic_url:content.pic_url||"/pic/page-bg.png"
   }
+  console.log(post)
   if(post.title&&post.collection&&post.abstract&&post.content){
     post.userId = req.session.userId
     post.upload_date = +new Date()
-    var sql = `INSERT INTO article ( upload_date, title,abstract,collection,userId,content )
+    var sql = `INSERT INTO article ( upload_date, title,abstract,collection,userId,content,pic_url )
                        VALUES
-                       ( "${post.upload_date}", "${post.title}",'${post.abstract}',"${post.collection}","${post.userId}",'${post.content}' );`
+                       ( "${post.upload_date}", "${post.title}",'${post.abstract}',"${post.collection}","${post.userId}",'${post.content}',"${post.pic_url}" );`
 
     mysql.query(sql, function (rows) {
       if (rows.insertId > 0) {
