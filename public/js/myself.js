@@ -10,7 +10,12 @@ app.controller('pageCtrl',['$scope','$http','$interval',function($scope,$http,$i
 	$scope.tabReply = function(){
 		$scope.isPage = false;
 	}
-	$http.get('/getArticle').then(function(data){
+	var userId = getUrlParam("id")||userId
+	$http.get('/getArticleById?id='+userId).then(function(data){
 		$scope.pageList  = data.data.data
 	})	
+	$http.get('/getCommentById?id='+userId).then(function(data){
+		$scope.commentList  = data.data.data
+	})
+
 }]);

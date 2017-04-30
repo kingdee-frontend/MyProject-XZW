@@ -39,11 +39,11 @@
 						</a>
 						<div class="content">
 							<div class="author">
-									<a href="{{page.author_url}}" class="avatar">
+									<a target="_blank" ng-href="/myself.html?id={{page.userId}}" class="avatar">
 										<img src="/pic/user-pic.png" alt="">
 									</a>
 									<div class="name">
-										<a href="">{{page.user_name}}</a>
+										<a href="">{{page.username}}</a>
 										<span>{{page.upload_date|date:'yyyy-MM-dd'}}</span>
 									</div>
 							</div>
@@ -58,10 +58,10 @@
 								</p>
 							</a>							
 							<div class="meta">
-								<a href="" class="collection-tag" target="_blank">{{page.collection}}</a>
-								<a href=""><i class="iconfont read-num"></i>{{page.read_num}}</a>
-								<a href=""><i class="iconfont reply-num"></i>{{page.reply_num}}</a>
-								<span><i class="iconfont like-num"></i>{{page.like_num}}</span>
+								<a href="" class="collection-tag" target="_blank">{{page.collection||0}}</a>
+								<a href=""><i class="iconfont read-num"></i>{{page.read_num||0}}</a>
+								<a href=""><i class="iconfont reply-num"></i>{{page.reply_num||0}}</a>
+								<span><i class="iconfont like-num"></i>{{page.like_num||0}}</span>
 							</div>
 						</div>
 					</li>

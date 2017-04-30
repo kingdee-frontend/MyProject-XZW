@@ -12,15 +12,15 @@
 	<figure>
 		<div class="container">
 			<div class="author">
-				<a href="myself.html" class="avatar">
+				<a href="myself.html?id=<%=session.userId%>" class="avatar">
 					<img src="/pic/user1.png" alt="">
 				</a>
 				<div class="info">
-					<h3>取个名字真的要长</h3>
+					<h3><%=data.username%></h3>
 					<div>
 						<!-- <a href=""><p>1</p> 关注</a> -->
-						<a href=""><p>2</p>评论</a>
-						<a href=""><p>3</p>文章</a>
+						<a href=""><p ng-bind="commentList.length||0"></p>评论</a>
+						<a href=""><p ng-bind="pageList.length||0"></p>文章</a>
 					</div>
 				</div>
 			</div>
@@ -33,22 +33,22 @@
 			</div>
 			<div class="tab_content">
 				<ul ng-show="isPage">
-					<li ng-repeat="page in pageList">
+					<li ng-repeat="page in pageList" ng-cloak="true">
 						<div class="passage_author">
-							<a href="myself.html" class="avatar">
+							<a tar ng-href="/myself.html?id={{page.userId}}" class="avatar">
 								<img src="/pic/user1.png" alt="">
 							</a>
 							<div class="name">
-								<a href="">{{page.user_name}}</a>
-								<span>{{page.upload_date}}</span>
+								<a href="">{{page.username}}</a>
+								<span>{{page.upload_date|date:'yyyy-MM-dd'}}</span>
 							</div>
 						</div>
-						<a href="page.html">
+						<a target="_blank" ng-href="/page/{{page.id}}" >
 							<h3 class="title">
 								{{page.title}}
 							</h3>
 						</a>	
-						<a href="page.html">	
+						<a tar ng-href="/page/{{page.id}}" >	
 							<p class="abstract">
 								{{page.abstract}}
 							</p>
@@ -61,6 +61,7 @@
 					</li>					
 				</ul>
 				<ul ng-show="!isPage">
+<<<<<<< HEAD
 					<li ng-repeat="page in pageList">
 						<div class="my_reply_li">
 							<p class="my_reply">这是我的一条评论</p>
@@ -90,6 +91,7 @@
 							</div>							
 						</div>
 					</li>
+					<li ng-repeat="comment in commentList"><a target="_blank"  tarng-href="/page/{{comment.articleId}}" ng-bind="comment.comment"></a></li>
 				</ul>
 			</div>
 			<!-- <div class="follow_author">

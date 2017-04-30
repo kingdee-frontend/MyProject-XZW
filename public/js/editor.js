@@ -78,3 +78,13 @@ app.controller('pageCtrl',['$scope','$http','$interval',function($scope,$http,$i
     window.$http = $http
     window.$interval = $interval
 }]);
+
+$(function(){
+    $('#form').on('submit',function(e){
+        var iframe = document.getElementById('ueditor_0')
+        var imagelist = iframe.contentWindow.document.images
+        if(imagelist.length>0){
+            $('#pic_url').val(imagelist[0].src)
+        }
+    })
+})

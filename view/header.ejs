@@ -1,4 +1,7 @@
 <nav>
+    <script>
+        var userId = "<%=session.userId||0%>"
+    </script>
     <div class="headerMenu">
         <a href="/" class="myLogo btn">我的博客</a>
         <a href="/" class="index_btn">首页</a>
@@ -7,10 +10,10 @@
         <a type="login" href="/sign-in.html" class="registerBtn btn">登录</a>
         <%}else{%>
         <a href="/editor.html" class="signInBtn btn">写文章</a>
-         <a href="/myself.html" class="user_head_pic" ng-mouseover="mouseover_()" ng-mouseout="mouseout_()"><img src="/pic/user1.png"></a> 
+         <a href="/myself.html?id=<%=session.userId%>" class="user_head_pic" ng-mouseover="mouseover_()" ng-mouseout="mouseout_()"><img src="/pic/user1.png"></a> 
         <div ng-show="isSign" class="my_list" ng-mouseover="mouseover_()" ng-mouseout="mouseout_()">
             <ul>
-                <li><a href="/myself.html">个人主页</a></li>
+                <li><a href="/myself.html?id=<%=session.userId%>">个人主页</a></li>
                 <li><a type="login" href="/loginout">退出登录</a></li>
             </ul>
         </div>         

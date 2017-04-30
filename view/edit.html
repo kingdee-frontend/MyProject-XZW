@@ -11,7 +11,7 @@
 <body ng-app="myApp" ng-controller="pageCtrl">
     <% include header%>
 <div>
-    <form action="/article" class="edit" method="post">
+    <form action="/article" class="edit" id="form" method="post">
         <label for="">分类：
             <select name="collection" id="my_tips" >
                 <option value="历史">历史</option>
@@ -23,6 +23,7 @@
         <input id="edit_title" name="title" type="text">
         <label for="abstract" class="edit_title">文章摘要：</label>
         <input id="edit_title" name="abstract" type="text">
+        <input id="pic_url" name="pic_url" type="hidden" type="text">
         <p class="edit_content">内容：</p>
         <textarea name="" id="editor" cols="30" rows="10"></textarea>
         <input type="submit" class="post_btn" value="发表">
