@@ -19,11 +19,11 @@
 		<div class="sign-up-box">
 			<form action="" id="signUp" name="user" novalidate>
 				<div>
-					<input type="text" placeholder="你的昵称" class="username"  ng-model="user.content"  ng-pattern="/[%|\$|#|\*]*/" ng-change="warnOn()">
+					<input type="text" placeholder="你的昵称" class="username"  ng-model="user.content"   ng-pattern="/^[^#\$%\*]*$/"  ng-change="warnOn()" >
 					<i class="iconfont user_name"></i>
-					<div class="warn" ng-show="user.long||user.content">
-						<span ng-show="user.long">用户名最长为16个字符</span>
-						<span ng-show="user.content">请勿输入带有% $ # *等特殊字符</span>
+					<div class="warn" ng-show="user.$invalid||user.content.length>16">
+						<span ng-show="user.content.length>16">用户名最长为16个字符</span>
+						<span ng-show="user.$invalid">请勿输入带有% $ # *等特殊字符</span>
 					</div>
 				</div>
 				<div>
