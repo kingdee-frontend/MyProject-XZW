@@ -61,24 +61,24 @@
 					</li>					
 				</ul>
 				<ul ng-show="!isPage">
-					<li ng-repeat="page in pageList">
+					<li ng-repeat="page in commentList">
 						<div class="my_reply_li">
-							<p class="my_reply">这是我的一条评论</p>
+							<p class="my_reply" ng-bind="page.comment"></p>
 							<div class="passage_author">
-								<a href="myself.html" class="avatar">
+								<a target="_blank" ng-href="myself.html?id={{page.userId}}" class="avatar">
 									<img src="/pic/user1.png" alt="">
 								</a>
 								<div class="name">
-									<a href="">{{page.user_name}}</a>
-									<span>{{page.upload_date}}</span>
+									<a href="">{{page.username}}</a>
+									<span>{{page.upload_date|date:'yyyy-MM-dd'}}</span>
 								</div>
 							</div>
-							<a href="page.html">
+							<a target="_blank"  ng-href="/page/{{page.articleId}}" >
 								<h3 class="title">
 									{{page.title}}
 								</h3>
 							</a>	
-							<a href="page.html">	
+							<a target="_blank"  ng-href="/page/{{page.articleId}}" >	
 								<p class="abstract">
 									{{page.abstract}}
 								</p>

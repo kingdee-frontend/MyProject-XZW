@@ -197,10 +197,21 @@ app.get('/getCommentById', function (req, res) {
     sendError(res,"缺少文章参数")
   }else{
     var sql = `SELECT
-*
+comment.*,
+article.title,
+user.username,
+article.abstract,
+article.read_num,
+article.reply_num,
+article.like_num,
+article.upload_date
 FROM
 comment
-WHERE userId = ${id}
+JOIN article
+ON comment.articleId = article.id 
+JOIN user
+ON comment.userId = user.id
+WHERE comment.userId = ${id}
 ORDER BY
 id DESC
 `
