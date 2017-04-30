@@ -35,7 +35,7 @@
 				<ul ng-show="isPage">
 					<li ng-repeat="page in pageList" ng-cloak="true">
 						<div class="passage_author">
-							<a ng-href="/myself.html?id={{page.userId}}" class="avatar">
+							<a tar ng-href="/myself.html?id={{page.userId}}" class="avatar">
 								<img src="/pic/user1.png" alt="">
 							</a>
 							<div class="name">
@@ -43,12 +43,12 @@
 								<span>{{page.upload_date|date:'yyyy-MM-dd'}}</span>
 							</div>
 						</div>
-						<a href="page.html">
+						<a target="_blank" ng-href="/page/{{page.id}}" >
 							<h3 class="title">
 								{{page.title}}
 							</h3>
 						</a>	
-						<a href="page.html">	
+						<a tar ng-href="/page/{{page.id}}" >	
 							<p class="abstract">
 								{{page.abstract}}
 							</p>
@@ -61,7 +61,7 @@
 					</li>					
 				</ul>
 				<ul ng-show="!isPage">
-					<li ng-repeat="comment in commentList"><a target="_blank" ng-href="/page/{{comment.articleId}}" ng-bind="comment.comment"></a></li>
+					<li ng-repeat="comment in commentList"><a target="_blank"  tarng-href="/page/{{comment.articleId}}" ng-bind="comment.comment"></a></li>
 				</ul>
 			</div>
 			<!-- <div class="follow_author">
