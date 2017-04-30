@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="/css/common.css">
 <link rel="stylesheet" href="/css/header.css">
 <link rel="stylesheet" href="/css/demo.css">
-<body  ng-app="myApp" ng-controller="pageCtrl">
+<body  ng-app="myApp" ng-controller="pageCtrl" ng-cloak>
 	<% include header%>
 	<figure>
 		<div class="container">
@@ -57,12 +57,12 @@
 									{{page.abstract}}
 								</p>
 							</a>							
-							<div class="meta">
+							<!-- <div class="meta">
 								<a href="" class="collection-tag" target="_blank">{{page.collection||0}}</a>
 								<a href=""><i class="iconfont read-num"></i>{{page.read_num||0}}</a>
 								<a href=""><i class="iconfont reply-num"></i>{{page.reply_num||0}}</a>
 								<span><i class="iconfont like-num"></i>{{page.like_num||0}}</span>
-							</div>
+							</div> -->
 						</div>
 					</li>
 				</ul>

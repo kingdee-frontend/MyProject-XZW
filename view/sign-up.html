@@ -27,13 +27,13 @@
 					</div>
 				</div>
 				<div>
-					<input type="password" placeholder="设置密码" class="keyword">
+					<input type="password" placeholder="设置密码" class="keyword" ng-model="password" name="password">
 					<i class="iconfont password"></i>
 				</div>
 				<div>
-					<input type="password" placeholder="再次输入密码" class="border keyword">
+					<input type="password" placeholder="再次输入密码" class="border keyword" ng-model="passwordagain" name="passwordagain">
 					<i class="iconfont password"></i>
-					<div class="warn" ng-show="isDif">
+					<div class="warn" ng-show="password!=passwordagain">
 						<span>两次密码不一致！</span>
 					</div>
 				</div>
