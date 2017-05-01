@@ -6,12 +6,16 @@ var bodyParser = require('body-parser')
 var session = require('express-session')
 var ueditor = require("ueditor")
 var path = require('path')
+const {writeFileSync} =require('fs')
 var { isValidate, sendError, sendSuccess, sendMessage,islogin } = require('./util')
 app.use(session({
   secret: 'zhiwei', //secret的值建议使用随机字符串
   cookie: { maxAge: 60 * 1000 * 30 } // 过期时间（毫秒）
 }));
-app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.urlencoded({ extended: false,limit:"1024"*3+'kb' }))
+app.use(bodyParser.raw({
+  limit:"1024"*3+'kb'
+}))
 app.get('/', function (req, res) {
     res.render('index', { session: req.session });
 });
@@ -43,7 +47,7 @@ app.get('/page/:id', function (req, res) {
   }else{
     var sql = `SELECT
 article.*,
-user.username
+user.username,user.avatar
 FROM
 article
 JOIN user
@@ -66,7 +70,25 @@ app.get('/sign-in.html', function (req, res) {
 
 app.get('/editor.html', function (req, res) {
   if(!islogin(req,res))return
-  res.render('edit', { session: req.session });
+  var id = parseInt(req.query.id)
+  if(id){
+    var sql = `Select * from article where id = ${id} Limit 1`
+    mysql.query(sql,function(rows){
+      console.log(rows)
+      if(rows.length>0){
+        if(rows[0].userId!=req.session.userId){
+          sendError(res,"你无权进行操作")
+        }else{
+          res.render('edit', { session: req.session,data:rows[0]});
+        }
+      }else{
+        sendError(res,"找不到该文章")
+      }
+    })
+  }else{
+    res.render('edit', { session: req.session,data:{}});
+  } 
+  
 });
 
 app.get('/sign-up.html', function (req, res) {
@@ -81,7 +103,7 @@ app.post('/register', function (req, res) {
     password: body.password
   }
   if (!isValidate(post)) sendError(res, '缺少用户名或者密码')
-  var userQuery = `Select 'id' from user where username = "${post.username}"`
+  var userQuery = `Select * from user where username = "${post.username}"`
   mysql.query(userQuery, function (rows) {
     if (rows.length > 0) {
       sendError(res, '该用户已经注册')
@@ -89,10 +111,19 @@ app.post('/register', function (req, res) {
       var sql = `INSERT INTO user ( username, password )
                        VALUES
                        ( "${post.username}", "${post.password}" );`
-      mysql.query(sql, function (rows) {
-        req.session.userId = rows.insertId
-        req.session.username = post.username
-        sendSuccess(res, "注册成功")
+      mysql.query(sql, function (result) {
+        if(result.insertId){
+          mysql.query(userQuery,function(rows){
+            req.session.userId = result.insertId
+            req.session.username = post.username
+            req.session.avatar = rows[0].avatar
+            sendSuccess(res, "注册成功")
+          })
+        }else{
+          sendError(res, '注册失败')
+        }
+       
+        
       }, res)
     }
   })
@@ -116,11 +147,12 @@ app.post('/login', function (req, res) {
     password: body.password
   }
   if (!isValidate(post)) sendError(res, '缺少用户名或者密码')
-  var userQuery = `Select id from user where username = "${post.username}" and password =  "${post.password}" `
+  var userQuery = `Select * from user where username = "${post.username}" and password =  "${post.password}" `
   mysql.query(userQuery, function (rows) {
     if (rows.length > 0) {
       req.session.userId = rows[0].id
       req.session.username = post.username
+      req.session.avatar = rows[0].avatar
       sendSuccess(res, "登陆成功")
     }else{
       sendError(res, "账号或者密码错误")
@@ -132,7 +164,7 @@ app.post('/login', function (req, res) {
 app.get('/getArticle', function (req, res) {
   var sql = `SELECT
 article.*,
-user.username
+user.username,user.avatar
 FROM
 article
 JOIN user
@@ -162,7 +194,7 @@ app.get('/getArticleById', function (req, res) {
   }else{
     var sql = `SELECT
 article.*,
-user.username
+user.username,user.avatar
 FROM
 article
 JOIN user
@@ -199,7 +231,7 @@ app.get('/getCommentById', function (req, res) {
     var sql = `SELECT
 comment.*,
 article.title,
-user.username,
+user.username,user.avatar,
 article.abstract,
 article.read_num,
 article.reply_num,
@@ -230,6 +262,7 @@ id DESC
 app.get('/loginout',function(req,res){
   req.session.userId=0
   req.session.username=""
+  req.session.avatar = ""
   var url = req.query.url
   if(url){
     url = decodeURIComponent(url)
@@ -270,7 +303,7 @@ app.get('/comment',function(req,res){
   }
   var sql = `SELECT
 comment.*,
-user.username
+user.username,user.avatar
 FROM
 comment
 JOIN user
@@ -308,8 +341,49 @@ app.post('/addComment',function(req,res){
   }
 })
 
+//删除文章
+app.get('/delArticle',(req,res)=>{
+  var userId = req.session.userId
+  if(!userId){
+    sendError(res,"请先登录")
+  }
+  var id = parseInt(req.query.id)
+  var sql = `Select * from article where id = ${id} and userId = ${userId}`
+  mysql.query(sql,function(rows){
+    if(rows.length>0){
+      var delsql = `delete from article where id = ${id}`
+      mysql.query(delsql,function(rows){
+        sendSuccess(res,'删除成功')
+      })
+    }else{
+      sendError(res,"不存在该文章")
+    }
+  })
+})
 
-//发布文章
+
+//删除文章
+app.get('/delComment',(req,res)=>{
+  var userId = req.session.userId
+  if(!userId){
+    sendError(res,"请先登录")
+  }
+  var id = parseInt(req.query.id)
+  var sql = `Select * from comment where id = ${id} and userId = ${userId}`
+  mysql.query(sql,function(rows){
+    if(rows.length>0){
+      var delsql = `delete from comment where id = ${id}`
+      mysql.query(delsql,function(rows){
+        sendSuccess(res,'删除成功')
+      })
+    }else{
+      sendError(res,"不存在该评论")
+    }
+  })
+})
+
+
+//发布修改文章
 app.post('/article',function(req,res){
   debugger
   if(!islogin(req,res))return 
@@ -326,12 +400,21 @@ app.post('/article',function(req,res){
   if(post.title&&post.collection&&post.abstract&&post.content){
     post.userId = req.session.userId
     post.upload_date = +new Date()
-    var sql = `INSERT INTO article ( upload_date, title,abstract,collection,userId,content,pic_url )
+    var id = req.query.id||0
+    if(id>0){
+      //编辑文章
+      var sql = `update article set  upload_date = "${post.upload_date}",title = "${post.title}" , abstract =  '${post.abstract}' ,collection ="${post.collection}" ,  content = '${post.content}' where id = ${id} and userId = ${req.session.userId} `
+      console.log(sql)
+    }else{
+      var sql = `INSERT INTO article ( upload_date, title,abstract,collection,userId,content,pic_url )
                        VALUES
                        ( "${post.upload_date}", "${post.title}",'${post.abstract}',"${post.collection}","${post.userId}",'${post.content}',"${post.pic_url}" );`
+    }
+    
 
     mysql.query(sql, function (rows) {
-      if (rows.insertId > 0) {
+      console.log(rows)
+      if (rows.insertId > 0||rows.fieldCount ==0 ) {
           res.redirect("/")
           return
       }else{
@@ -343,6 +426,39 @@ app.post('/article',function(req,res){
     return 
   }
 })
+
+
+
+app.post('/uploadPic',(req,res)=>{
+  if(!req.session.userId){
+    sendError(res,"请先登录")
+    return
+  }
+  var base64 = req.body.file 
+  var file = 'upload/avatar/'+(+new Date())+'.png'
+  var filename = path.resolve(__dirname,'public/'+file)
+  var base64Data = base64.replace(/^data:image\/\w+;base64,/, "");
+  var dataBuffer = new Buffer(base64Data, 'base64');
+  try{
+    writeFileSync(filename,dataBuffer)
+    var sql = `update user set avatar = "${'http://localhost:9999/'+file}" where id = ${req.session.userId}`
+    mysql.query(sql,function(rows){
+      if(rows.fieldCount==0){
+        req.session.avatar = 'http://localhost:9999/'+file
+        sendMessage(res,{
+          pic:'http://localhost:9999/'+file
+        })
+      }else{
+        sendError(res,"数据库修改失败")
+      }
+    })
+    
+  }catch(e){
+    sendError(res,e)
+  }
+  return
+})
+
 
 app.use("/ueditor/ue", ueditor(path.join(__dirname, 'public'), function(req, res, next) {
  
