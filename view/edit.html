@@ -11,7 +11,7 @@
 <body ng-app="myApp" ng-controller="pageCtrl">
     <% include header%>
 <div>
-    <form action="/article" class="edit" id="form" method="post">
+    <form action="/article<%=data.id?('?id='+data.id):""%>" class="edit" id="form" method="post">
         <label for="">分类：
             <select name="collection" id="my_tips" >
                 <option value="历史">历史</option>
@@ -20,9 +20,9 @@
         </label>
         <br>
         <label for="edit_title" class="edit_title">文章标题：</label>
-        <input id="edit_title" name="title" type="text">
+        <input id="edit_title" name="title" type="text" value="<%=data.title%>">
         <label for="abstract" class="edit_title">文章摘要：</label>
-        <input id="edit_title" name="abstract" type="text">
+        <input id="edit_title" name="abstract" type="text" value="<%=data.abstract%>">
         <input id="pic_url" name="pic_url" type="hidden" type="text">
         <p class="edit_content">内容：</p>
         <textarea name="" id="editor" cols="30" rows="10"></textarea>
@@ -37,4 +37,10 @@
 <script type="text/javascript" charset="utf-8" src="/ueditor/ueditor.all.js"> </script>
 <script type="text/javascript" charset="utf-8" src="/ueditor/lang/zh-cn/zh-cn.js"></script>
 <script src="/js/editor.js"></script>
+<script>
+    ue.addListener( 'ready', function( editor ) {
+        ue.setContent(`<%-data.content%>`)
+    } );
+
+</script>
 </html>

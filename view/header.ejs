@@ -10,7 +10,7 @@
         <a type="login" href="/sign-in.html" class="registerBtn btn">登录</a>
         <%}else{%>
         <a href="/editor.html" class="signInBtn btn">写文章</a>
-         <a href="/myself.html?id=<%=session.userId%>" class="user_head_pic" ng-mouseover="mouseover_()" ng-mouseout="mouseout_()"><img src="/pic/user1.png"></a> 
+         <a href="/myself.html?id=<%=session.userId%>" class="user_head_pic" ng-mouseover="mouseover_()" ng-mouseout="mouseout_()"><img src="<%=session.avatar%>"></a> 
         <div ng-show="isSign" class="my_list" ng-mouseover="mouseover_()" ng-mouseout="mouseout_()">
             <ul>
                 <li><a href="/myself.html?id=<%=session.userId%>">个人主页</a></li>

@@ -8,12 +8,16 @@
 <link rel="stylesheet" href="/css/myself.css">
 <link rel="stylesheet" href="/css/demo.css">
 <body  ng-app="myApp" ng-controller="pageCtrl" ng-cloak>
-	<%include header%>	
+	<%include header%>
+	<script>
+		var myself = '<%=data.id%>'
+	</script>
 	<figure>
 		<div class="container">
 			<div class="author">
-				<a href="myself.html?id=<%=session.userId%>" class="avatar">
-					<img src="/pic/user1.png" alt="">
+				<a ng-href="#"  ng-click="changePic()" class="avatar">
+					<img id="avatar" src="<%=data.avatar%>" alt="">
+					<input id="file" type="file" style="visibility:hidden">
 				</a>
 				<div class="info">
 					<h3><%=data.username%></h3>
@@ -36,7 +40,7 @@
 					<li ng-repeat="page in pageList" ng-cloak="true">
 						<div class="passage_author">
 							<a tar ng-href="/myself.html?id={{page.userId}}" class="avatar">
-								<img src="/pic/user1.png" alt="">
+								<img ng-src="{{page.avatar}}" alt="">
 							</a>
 							<div class="name">
 								<a href="">{{page.username}}</a>
@@ -52,7 +56,9 @@
 							<p class="abstract">
 								{{page.abstract}}
 							</p>
-						</a>							
+						</a>
+						<button ng-if="my" style="float:right" ng-click="edit(page.id)">编辑</button>						
+						<button ng-if="my" style="float:right" ng-click="del(page.id)">删除</button>	
 						<div class="meta">
 							<a href=""><i class="iconfont read-num"></i></a>
 							<a href=""><i class="iconfont reply-num"></i></a>
@@ -64,10 +70,11 @@
 					<li ng-repeat="page in commentList">
 						<div class="my_reply_li">
 							<p class="my_reply" ng-bind="page.comment"></p>
+							<button ng-if="my" style="float:right" ng-click="delComment(page.id)">删除</button>	
 							<div class="reply_box">
 								<div class="passage_author">
 									<a target="_blank" ng-href="myself.html?id={{page.userId}}" class="avatar">
-										<img src="/pic/user1.png" alt="">
+										<img ng-src="{{page.avatar}}" alt="">
 									</a>
 									<div class="name">
 										<a href="">{{page.username}}</a>
@@ -98,7 +105,7 @@
 			</div>
 			<!-- <div class="follow_author">
 				<a href="myself.html" class="avatar">
-					<img src="/pic/user1.png" alt="">
+					<img src="{{page.avatar}}" alt="">
 				</a>
 				<a href="" class="has_follow" ng-mouseover="follow_hover()">
 					<i class="iconfont has"></i>
